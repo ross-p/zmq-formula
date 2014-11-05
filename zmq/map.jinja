@@ -1,0 +1,7 @@
+{% set zmq = salt['grains.filter_by']({
+    'Debian': {
+        'source_root': '/usr/local/src',
+        'configure_flags': '',
+        'make_flags': '',
+    },
+}, merge=salt['pillar.get']('zmq:lookup', {})) %}

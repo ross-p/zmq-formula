@@ -27,7 +27,7 @@ get-zmq-source:
     - tar_options: z
     - if_missing: {{ zmq.source_root }}/{{ zeromq_XYZ }}
 
-zmq-compile-required:
+is-zmq-compile-required:
   cmd.run:
     - cwd: {{ zmq.source_root }}
     - name: test -e {{ zeromq_XYZ }}/src/libzmq.la || echo "changed=true comment='Make has not succeeded'"
@@ -39,7 +39,7 @@ compile-zmq-source:
     - name: ./configure {{ zmq.configure_flags }} && make {{ zmq.make_flags }}
     - watch:
       - archive: get-zmq-source
-      - cmd: zmq-compile-required
+      - cmd: is-zmq-compile-required
     - require:
       - archive: get-zmq-source
       - pkg: zmq-source-dependencies
